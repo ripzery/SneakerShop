@@ -20,12 +20,9 @@ class SneakerListDiffUtilCallback(private val oldItems: List<SneakerListItemView
             oldItems[oldItemPosition].id == newItems[newItemPosition].id
 
     override fun getOldListSize(): Int = oldItems.size
-
     override fun getNewListSize(): Int = newItems.size
-
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
             oldItems[oldItemPosition] == newItems[newItemPosition]
-
 }
 
 open class SneakerListAdapter : RecyclerView.Adapter<SneakerListViewHolder>() {
@@ -34,7 +31,7 @@ open class SneakerListAdapter : RecyclerView.Adapter<SneakerListViewHolder>() {
         fun onItemClick(position: Int)
     }
 
-    open var items by Delegates.observable(listOf<SneakerListItemViewModel>()) { props, oldValue, newValue ->
+    open var items by Delegates.observable(listOf<SneakerListItemViewModel>()) { _, oldValue, newValue ->
         DiffUtil.calculateDiff(SneakerListDiffUtilCallback(oldValue, newValue)).dispatchUpdatesTo(this)
     }
 
